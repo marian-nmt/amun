@@ -365,17 +365,14 @@ void EncoderDecoder::BeginSentenceStateTopup(const Histories& histories,
 {
   //BEGIN_TIMER("BeginSentenceState");
   EDState& edState = state.get<EDState>();
-  unsigned batchSize = histories.NumActive();
 
-  decoder_->EmptyStateTopup(edState.GetStates(),
-                            sourceContext,
-                            SCU,
-                            newSentences,
-                            d_oldBatchIds,
-                            newBatchIds,
-                            newHypoIds);
+  mblas::AddNewStates(edState.GetStates(), newHypoIds, newSentences);
 
-  decoder_->EmptyEmbeddingTopup(edState.GetEmbeddings(), histories.GetTotalBeamSize(), d_newHypoIds);
+  unsigned maxLength = maxLength = sourceContext.dim(0);
+  ResizeMatrix3(SCU, {0, maxLength}, d_oldBatchIds);
+  AddNewSCU(SCU, newBatchIds, newSentences);
+
+  mblas::Fill0(edState.GetEmbeddings(), 0, d_newHypoIds);
 }
 
 void EncoderDecoder::CalcBeam(BestHypsBase &bestHyps,

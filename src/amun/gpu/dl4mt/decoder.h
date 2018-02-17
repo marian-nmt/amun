@@ -115,14 +115,6 @@ private:
           }
         }
 
-        void InitializeStateTopup(CellState& State,
-                                  const std::vector<BufferOutput> &newSentences,
-                                  const std::vector<unsigned> &newHypoIds) const
-        {
-          mblas::AddNewStates(State, newHypoIds, newSentences);
-
-        }
-
         void GetNextState(CellState& NextState,
                           const CellState& State,
                           const mblas::Matrix& Context) const
@@ -172,20 +164,6 @@ private:
           if (w_.Gamma_1_->size()) {
             Normalization(SCU, SCU, *w_.Gamma_1_, *w_.B_, 1e-9);
           }
-        }
-
-        void InitTopup(const mblas::Matrix& SourceContext,
-                  mblas::Matrix& SCU,
-                  const std::vector<BufferOutput> &newSentences,
-                  const mblas::Vector<unsigned> &d_oldBatchIds,
-                  const std::vector<unsigned> &newBatchIds
-                  ) const
-        {
-          using namespace mblas;
-
-          unsigned maxLength = maxLength = SourceContext.dim(0);
-          ResizeMatrix3(SCU, {0, maxLength}, d_oldBatchIds);
-          AddNewSCU(SCU, newBatchIds, newSentences);
         }
 
         void GetAlignedSourceContext(mblas::Matrix& AlignedSourceContext,
@@ -406,29 +384,10 @@ private:
       return Probs_;
     }
 
-    void EmptyStateTopup(CellState& State,
-                    const mblas::Matrix &SourceContext,
-                    mblas::Matrix& SCU,
-                    const std::vector<BufferOutput> &newSentences,
-                    const mblas::Vector<unsigned> &d_oldBatchIds,
-                    const std::vector<unsigned> &newBatchIds,
-                    const std::vector<unsigned> &newHypoIds) const
-    {
-      rnn1_.InitializeStateTopup(State, newSentences, newHypoIds);
-      alignment_.InitTopup(SourceContext, SCU, newSentences, d_oldBatchIds, newBatchIds);
-    }
-
     void EmptyEmbedding(mblas::Matrix& Embedding, unsigned batchSize) const
     {
       Embedding.NewSize(batchSize, embeddings_.GetCols());
       mblas::Fill(Embedding, 0);
-    }
-
-    void EmptyEmbeddingTopup(mblas::Matrix& Embedding,
-                            unsigned totalBeamSize,
-                            const mblas::Vector<unsigned> &d_newHypoIds) const
-    {
-      mblas::Fill0(Embedding, 0, d_newHypoIds);
     }
 
     void Lookup(mblas::Matrix& Embedding,
