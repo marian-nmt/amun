@@ -326,14 +326,8 @@ void EncoderDecoder::TopupBatch(Histories &histories,
     BEGIN_TIMER("TopupBatch.4");
     ResizeMatrix3(sourceContext, {0, maxLength}, d_oldBatchIds);
     PAUSE_TIMER("TopupBatch.4");
-    
-    BEGIN_TIMER("TopupBatch.5");
-    AddNewSourceContext(sourceContext, newBatchIds, newSentences);
-    PAUSE_TIMER("TopupBatch.5");
-    
-    BEGIN_TIMER("TopupBatch.6");
+
     BeginSentenceStateTopup(histories, sourceContext, state, SCU, newSentences, d_oldBatchIds, newBatchIds, newHypoIds, d_newHypoIds);
-    PAUSE_TIMER("TopupBatch.6");
   }
 
   //LOG(progress)->info("Topup took {} new {} histories {}", timer.format(5, "%w"), newSentences.size(), histories.NumActive());
@@ -354,7 +348,7 @@ void EncoderDecoder::BeginSentenceState(const Histories& histories,
 }
 
 void EncoderDecoder::BeginSentenceStateTopup(const Histories& histories,
-                                        const mblas::Matrix &sourceContext,
+                                        mblas::Matrix &sourceContext,
                                         State& state,
                                         mblas::Matrix& SCU,
                                         const std::vector<BufferOutput> &newSentences,
@@ -363,16 +357,29 @@ void EncoderDecoder::BeginSentenceStateTopup(const Histories& histories,
                                         const std::vector<unsigned> &newHypoIds,
                                         const mblas::Vector<unsigned> &d_newHypoIds) const
 {
+  BEGIN_TIMER("TopupBatch.5");
+  AddNewSourceContext(sourceContext, newBatchIds, newSentences);
+  PAUSE_TIMER("TopupBatch.5");
+
   //BEGIN_TIMER("BeginSentenceState");
   EDState& edState = state.get<EDState>();
 
+  BEGIN_TIMER("TopupBatch.6");
   mblas::AddNewStates(edState.GetStates(), newHypoIds, newSentences);
+  PAUSE_TIMER("TopupBatch.6");
 
   unsigned maxLength = maxLength = sourceContext.dim(0);
+  BEGIN_TIMER("TopupBatch.7");
   ResizeMatrix3(SCU, {0, maxLength}, d_oldBatchIds);
-  AddNewSCU(SCU, newBatchIds, newSentences);
+  PAUSE_TIMER("TopupBatch.7");
 
+  BEGIN_TIMER("TopupBatch.8");
+  AddNewSCU(SCU, newBatchIds, newSentences);
+  PAUSE_TIMER("TopupBatch.8");
+
+  BEGIN_TIMER("TopupBatch.9");
   mblas::Fill0(edState.GetEmbeddings(), 0, d_newHypoIds);
+  PAUSE_TIMER("TopupBatch.9");
 }
 
 void EncoderDecoder::CalcBeam(BestHypsBase &bestHyps,

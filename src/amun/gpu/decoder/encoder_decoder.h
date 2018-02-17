@@ -94,7 +94,7 @@ class EncoderDecoder : public Scorer {
                             mblas::Matrix& SCU) const;
 
     void BeginSentenceStateTopup(const Histories& histories,
-                            const mblas::Matrix &sourceContext,
+                            mblas::Matrix &sourceContext,
                             State& state,
                             mblas::Matrix& SCU,
                             const std::vector<BufferOutput> &newSentences,
