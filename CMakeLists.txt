@@ -24,8 +24,6 @@ include_directories(${amunmt_SOURCE_DIR})
 option(CPU "Select to compile with CPU support" ON)
 option(CUDA "Select to compile CUDA support by default if available" ON)
 option(FPGA "Select to compile with FPGA support" OFF)
-option(MARIAN "Select to compile with Marian library" ON)
-option(MARIAN_LIBRARY_ONLY "Automatically set when building amunmt. Don't touch this." ON)
 
 if(CPU)
     add_definitions(-DHAS_CPU)
@@ -44,11 +42,6 @@ if(CUDA)
     SET(CUDA_PROPAGATE_HOST_FLAGS OFF)
     message("-- Compiling with CUDA support")
     
-    if (MARIAN)
-      execute_process(COMMAND git submodule update --init --recursive --no-fetch
-                      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
-    endif(MARIAN)
-
   else(CUDA_FOUND)
     add_definitions(-DNO_CUDA)
     message("-- Cannot find CUDA libraries. Compiling without them." )
