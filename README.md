@@ -1,37 +1,11 @@
-# amun
+# Amun 
 Stand-alone C++ decoder for RNN-based NMT models. Can decode with default models from Marian and Nematus.
-
-# Marian
 
 [![CUDABuild Status](http://vali.inf.ed.ac.uk/jenkins/buildStatus/icon?job=amunmt_compilation_cuda)](http://vali.inf.ed.ac.uk/jenkins/job/amunmt_compilation_cuda/)
 [![CPU Build Status](http://vali.inf.ed.ac.uk/jenkins/buildStatus/icon?job=amunmt_compilation_cpu)](http://vali.inf.ed.ac.uk/jenkins/job/amunmt_compilation_cpu/)
 [![Twitter](https://img.shields.io/twitter/follow/marian_nmt.svg?style=social&label=Follow)](https://twitter.com/intent/follow?screen_name=marian_nmt)
 
-
- <p>
-  <b>Marian</b> (formerly known as AmuNMT) is an efficient Neural Machine Translation framework written
-  in pure C++ with minimal dependencies. It has mainly been developed at the
-  Adam Mickiewicz University in Poznań (AMU) and at the University of Edinburgh.
-  </p>
-
-  <p>
-  It is currently being deployed in
-  multiple European projects and is the main translation and training engine
-  behind the neural MT launch at the
-  <a href="http://www.wipo.int/pressroom/en/articles/2016/article_0014.html">World Intellectual Property Organization</a>.
-
-  </p>
-
-  <p>
-  Main features:
-  <ul>
-    <li> Fast multi-gpu training and translation </li>
-    <li> Compatible with Nematus and DL4MT </li>
-    <li> Efficient pure C++ implementation </li>
-    <li> Permissive open source license (MIT) </li>
-    <li> <a href="https://marian-nmt.github.io/features/"> more details... </a> </li>
-  </ul>
-  </p>
+This tool was a part of [Marian](https://github.com/marian-nmt/marian), we moved it to separate repository as it is now superseded by the built-in decoder in Marian. For small RNN models this decoder can still be faster on the GPU than the official Marian decoder.
 
 If you use this, please cite:
 
@@ -76,5 +50,3 @@ National Intelligence (ODNI), Intelligence Advanced Research Projects Activity
 (IARPA), via contract #FA8650-17-C-9117.
 
 This software contains source code provided by NVIDIA Corporation.
-
->>>>>>> marian
