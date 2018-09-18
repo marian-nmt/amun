@@ -1,11 +1,25 @@
-# Amun 
-Stand-alone C++ decoder for RNN-based NMT models. Can decode with default models from Marian and Nematus.
+# Amun
 
-This tool was a part of [Marian](https://github.com/marian-nmt/marian), which now has its own decoder. Therefore, amun has been moved to a separate repository. For RNN models this decoder can still be faster on the GPU than the official Marian decoder.
+[![CPU Build Status](https://img.shields.io/jenkins/s/http/vali.inf.ed.ac.uk/jenkins/view/amunmt/job/amun-cpu.svg?label=CPU%20Build)](http://vali.inf.ed.ac.uk/jenkins/job/amun-cpu/)
+[![CUDA Build Status](https://img.shields.io/jenkins/s/http/vali.inf.ed.ac.uk/jenkins/view/amunmt/job/amun-gpu.svg?label=CUDA%20Build)](http://vali.inf.ed.ac.uk/jenkins/job/amun-gpu/)
+[![CPU Tests Status](https://img.shields.io/jenkins/s/http/vali.inf.ed.ac.uk/jenkins/view/amunmt/job/amun-regression-tests-cpu.svg?label=CPU%20Tests)](http://vali.inf.ed.ac.uk/jenkins/job/amun-regression-tests-cpu/)
+[![CUDA Tests Status](https://img.shields.io/jenkins/s/http/vali.inf.ed.ac.uk/jenkins/view/amunmt/job/amun-regression-tests-gpu.svg?label=CUDA%20Tests)](http://vali.inf.ed.ac.uk/jenkins/job/amun-regression-tests-gpu/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+
+Stand-alone C++ decoder for RNN-based NMT models. Can decode with default
+models from Marian and Nematus.
+
+This tool was a part of [Marian](https://github.com/marian-nmt/marian), which
+now has its own decoder. Therefore, _amun_ has been moved to a separate
+repository. For RNN models this decoder can still be faster on the GPU than the
+official Marian decoder.
 
 If you use this, please cite:
 
-Marcin Junczys-Dowmunt, Roman Grundkiewicz, Tomasz Dwojak, Hieu Hoang, Kenneth Heafield, Tom Neckermann, Frank Seide, Ulrich Germann, Alham Fikri Aji, Nikolay Bogoychev, André F. T. Martins, Alexandra Birch (2018). Marian: Fast Neural Machine Translation in C++ (http://www.aclweb.org/anthology/P18-4020)
+Marcin Junczys-Dowmunt, Roman Grundkiewicz, Tomasz Dwojak, Hieu Hoang, Kenneth
+Heafield, Tom Neckermann, Frank Seide, Ulrich Germann, Alham Fikri Aji, Nikolay
+Bogoychev, André F. T. Martins, Alexandra Birch (2018). [Marian: Fast Neural
+Machine Translation in C++](http://www.aclweb.org/anthology/P18-4020)
 
     @InProceedings{mariannmt,
         title     = {Marian: Fast Neural Machine Translation in {C++}},
@@ -46,5 +60,3 @@ National Intelligence (ODNI), Intelligence Advanced Research Projects Activity
 (IARPA), via contract #FA8650-17-C-9117.
 
 This software contains source code provided by NVIDIA Corporation.
-
-
