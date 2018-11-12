@@ -247,9 +247,9 @@ void Config::AddOptions(unsigned argc, char** argv) {
     ("return-nematus-alignment", po::value<bool>()->zero_tokens()->default_value(false),
      "If true, return Nematus style soft alignment.")
 
-     ("max-length", po::value<unsigned>()->default_value(500),
+     ("max-length", po::value<unsigned>()->default_value(200),
       "Maximum length of input sentences. Anything above this is truncated. 0=no max length")
-     ("max-length-multiple", po::value<float>()->default_value(3),
+     ("max-length-multiple", po::value<float>()->default_value(2),
       "Maximum length of output sentences as a multiple of input sentence")
 
       ("version,v", po::value<bool>()->zero_tokens()->default_value(false),
@@ -265,7 +265,7 @@ void Config::AddOptions(unsigned argc, char** argv) {
 
   po::options_description search("Search options");
   search.add_options()
-    ("beam-size,b", po::value<unsigned>()->default_value(12),
+    ("beam-size,b", po::value<unsigned>()->default_value(1),
      "Decoding beam-size")
     ("normalize,n", po::value<bool>()->zero_tokens()->default_value(false),
      "Normalize scores by translation length after decoding")

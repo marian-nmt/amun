@@ -37,6 +37,41 @@ Machine Translation in C++](http://www.aclweb.org/anthology/P18-4020)
         url       = {http://www.aclweb.org/anthology/P18-4020}
     }
 
+other papers about Amun:
+	@article{DBLP:journals/corr/Junczys-Dowmunt16c,
+	  author    = {Marcin Junczys{-}Dowmunt and
+	               Tomasz Dwojak and
+	               Hieu Hoang},
+	  title     = {Is Neural Machine Translation Ready for Deployment? {A} Case Study
+	               on 30 Translation Directions},
+	  journal   = {CoRR},
+	  volume    = {abs/1610.01108},
+	  year      = {2016},
+	  url       = {http://arxiv.org/abs/1610.01108},
+	  archivePrefix = {arXiv},
+	  eprint    = {1610.01108},
+	  timestamp = {Mon, 13 Aug 2018 16:48:23 +0200},
+	  biburl    = {https://dblp.org/rec/bib/journals/corr/Junczys-Dowmunt16c},
+	  bibsource = {dblp computer science bibliography, https://dblp.org}
+	}
+
+	@InProceedings{W18-2714,
+	  author = 	"Hoang, Hieu
+			and Dwojak, Tomasz
+			and Krislauks, Rihards
+			and Torregrosa, Daniel
+			and Heafield, Kenneth",
+	  title = 	"Fast Neural Machine Translation Implementation",
+	  booktitle = 	"Proceedings of the 2nd Workshop on Neural Machine Translation and Generation",
+	  year = 	"2018",
+	  publisher = 	"Association for Computational Linguistics",
+	  pages = 	"116--121",
+	  location = 	"Melbourne, Australia",
+	  url = 	"http://aclweb.org/anthology/W18-2714"
+	}
+
+
+
 ## Website
 
 More information on https://marian-nmt.github.io
