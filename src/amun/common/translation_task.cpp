@@ -23,7 +23,7 @@ void TranslationTaskAndOutput(const God &god, std::shared_ptr<Sentences> sentenc
   for (unsigned i = 0; i < histories->size(); ++i) {
     const History &history = *histories->at(i);
     unsigned lineNum = history.GetLineNum();
-    const Sentence &sentence = sentences->Get(0);
+    const Sentence &sentence = sentences->Get(i);
 
     std::stringstream strm;
     Printer(god, history, strm, sentence);
