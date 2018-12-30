@@ -38,6 +38,7 @@ Machine Translation in C++](http://www.aclweb.org/anthology/P18-4020)
     }
 
 other papers about Amun:
+
 	@article{DBLP:journals/corr/Junczys-Dowmunt16c,
 	  author    = {Marcin Junczys{-}Dowmunt and
 	               Tomasz Dwojak and
