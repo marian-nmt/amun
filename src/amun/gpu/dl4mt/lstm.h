@@ -27,31 +27,31 @@ class SlowLSTM: public Cell {
 
       // transform context for use with gates and for computing the input (the C part)
       Prod(FIOC_, Context, *w_.W_);
-      BroadcastVec(_1 + _2, FIOC_, *w_.B_); // Broadcasting row-wise
+      BroadcastVec(thrust::placeholders::_1 + thrust::placeholders::_2, FIOC_, *w_.B_); // Broadcasting row-wise
 
       // transform previous output for use with gates and for computing the input
       Prod(Temp1_, *(State.output), *w_.U_);
 
-      Element(_1 + _2, FIOC_, Temp1_);
+      Element(thrust::placeholders::_1 + thrust::placeholders::_2, FIOC_, Temp1_);
       // compute the gates
       Slice(FIO_, FIOC_, 0, cols * 3);
-      Element(Logit(_1), FIO_);
+      Element(Logit(thrust::placeholders::_1), FIO_);
       Slice(F_, FIO_, 0, cols);
       Slice(I_, FIO_, 1, cols);
       Slice(O_, FIO_, 2, cols);
       // compute the input
       Slice(C_, FIOC_, 3, cols);
-      Element(Tanh(_1), C_);
+      Element(Tanh(thrust::placeholders::_1), C_);
 
       // apply the forget gate
       Copy(*NextState.cell, *State.cell);
-      Element(_1 * _2, *NextState.cell, F_);
+      Element(thrust::placeholders::_1 * thrust::placeholders::_2, *NextState.cell, F_);
       // apply the input gate
-      Element(_1 * _2, C_, I_);
+      Element(thrust::placeholders::_1 * thrust::placeholders::_2, C_, I_);
       // update the cell state with the input
-      Element(_1 + _2, *NextState.cell, C_);
+      Element(thrust::placeholders::_1 + thrust::placeholders::_2, *NextState.cell, C_);
       // apply the output gate
-      Element(_1 * Tanh(_2), O_, *NextState.cell);
+      Element(thrust::placeholders::_1 * Tanh(thrust::placeholders::_2), O_, *NextState.cell);
       Swap(*(NextState.output), O_);
     }
 

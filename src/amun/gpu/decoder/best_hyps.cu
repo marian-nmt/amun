@@ -112,12 +112,12 @@ void  BestHyps::CalcBeam(
     FindBests(beamSizes, Probs, nBest, bestCosts, bestKeys, isFirst);
   }
   else {
-    BroadcastVecColumn(weights_.at(scorers[0]->GetName()) * _1 + _2, Probs, costs_);
+    BroadcastVecColumn(weights_.at(scorers[0]->GetName()) * thrust::placeholders::_1 + thrust::placeholders::_2, Probs, costs_);
 
     for (unsigned i = 1; i < scorers.size(); ++i) {
       mblas::Tensor &currProbs = static_cast<mblas::Tensor&>(scorers[i]->GetProbs());
 
-      Element(_1 + weights_.at(scorers[i]->GetName()) * _2, Probs, currProbs);
+      Element(thrust::placeholders::_1 + weights_.at(scorers[i]->GetName()) * thrust::placeholders::_2, Probs, currProbs);
     }
 
     if (forbidUNK_) {

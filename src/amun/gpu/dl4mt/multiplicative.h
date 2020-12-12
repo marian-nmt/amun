@@ -27,10 +27,10 @@ class Multiplicative: public Cell {
 
       Copy(*tempState_.cell, *State.cell);
       Prod(*tempState_.output, *State.output, *w_.Um_);
-      BroadcastVec(_1 + _2, *tempState_.output, *w_.Bmu_);
+      BroadcastVec(thrust::placeholders::_1 + thrust::placeholders::_2, *tempState_.output, *w_.Bmu_);
       Prod(x_mult_, Context, *w_.Wm_);
-      BroadcastVec(_1 + _2, x_mult_, *w_.Bm_);
-      Element(_1 * _2, *tempState_.output, x_mult_);
+      BroadcastVec(thrust::placeholders::_1 + thrust::placeholders::_2, x_mult_, *w_.Bm_);
+      Element(thrust::placeholders::_1 * thrust::placeholders::_2, *tempState_.output, x_mult_);
       innerCell_.GetNextState(NextState, tempState_, Context);
     }
     virtual CellLength GetStateLength() const {

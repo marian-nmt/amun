@@ -95,9 +95,9 @@ class Decoder {
 
           if (w_.Gamma_->size()) {
             Normalization(*(State.output), *(State.output), *w_.Gamma_, *w_.Bi_, 1e-9);
-            Element(Tanh(_1), *(State.output));
+            Element(Tanh(thrust::placeholders::_1), *(State.output));
           } else {
-            BroadcastVec(Tanh(_1 + _2), *(State.output), *w_.Bi_);
+            BroadcastVec(Tanh(thrust::placeholders::_1 + thrust::placeholders::_2), *(State.output), *w_.Bi_);
           }
           //std::cerr << "3State=" << State.Debug(1) << std::endl;
           //std::cerr << "\n";
@@ -229,11 +229,11 @@ class Decoder {
           if (w_.Gamma_2_->size()) {
             Normalization(Temp2_, Temp2_, *w_.Gamma_2_, 1e-9);
           } else {
-            BroadcastVec(_1 + _2, Temp2_, *w_.B_/*, s_[1]*/);
+            BroadcastVec(thrust::placeholders::_1 + thrust::placeholders::_2, Temp2_, *w_.B_/*, s_[1]*/);
           }
           //std::cerr << "2Temp2_=" << Temp2_.Debug() << std::endl;
 
-          Broadcast(Tanh(_1 + _2), Temp1_, SCU_, Temp2_, dBatchMapping_, maxLength);
+          Broadcast(Tanh(thrust::placeholders::_1 + thrust::placeholders::_2), Temp1_, SCU_, Temp2_, dBatchMapping_, maxLength);
 
           Prod(A_, *w_.V_, Temp1_, true);
 
@@ -315,7 +315,7 @@ class Decoder {
           if (w_.Gamma_1_->size()) {
             Normalization(T1_, T1_, *w_.Gamma_1_, *w_.B1_, 1e-9);
           } else {
-            BroadcastVec(_1 + _2, T1_, *w_.B1_ /*,s_[0]*/);
+            BroadcastVec(thrust::placeholders::_1 + thrust::placeholders::_2, T1_, *w_.B1_ /*,s_[0]*/);
           }
           //PAUSE_TIMER("GetProbs.Normalization/BroadcastVec");
 
@@ -327,7 +327,7 @@ class Decoder {
           if (w_.Gamma_0_->size()) {
             Normalization(T2_, T2_, *w_.Gamma_0_, *w_.B2_, 1e-9);
           } else {
-            BroadcastVec(_1 + _2, T2_, *w_.B2_ /*,s_[1]*/);
+            BroadcastVec(thrust::placeholders::_1 + thrust::placeholders::_2, T2_, *w_.B2_ /*,s_[1]*/);
           }
           //PAUSE_TIMER("GetProbs.Normalization/BroadcastVec2");
 
@@ -339,12 +339,12 @@ class Decoder {
           if (w_.Gamma_2_->size()) {
             Normalization(T3_, T3_, *w_.Gamma_2_, *w_.B3_, 1e-9);
           } else {
-            BroadcastVec(_1 + _2, T3_, *w_.B3_ /*,s_[2]*/);
+            BroadcastVec(thrust::placeholders::_1 + thrust::placeholders::_2, T3_, *w_.B3_ /*,s_[2]*/);
           }
           //PAUSE_TIMER("GetProbs.Normalization/BroadcastVec3");
 
           //BEGIN_TIMER("GetProbs.Element");
-          Element(Tanh(_1 + _2 + _3), T1_, T2_, T3_);
+          Element(Tanh(thrust::placeholders::_1 + thrust::placeholders::_2 + thrust::placeholders::_3), T1_, T2_, T3_);
           //PAUSE_TIMER("GetProbs.Element");
 
           std::shared_ptr<mblas::Tensor> w4;
@@ -364,7 +364,7 @@ class Decoder {
 
           if (!useFusedSoftmax) {
             BEGIN_TIMER("GetProbs.BroadcastVec");
-            BroadcastVec(_1 + _2, Probs, *b4);
+            BroadcastVec(thrust::placeholders::_1 + thrust::placeholders::_2, Probs, *b4);
             PAUSE_TIMER("GetProbs.BroadcastVec");
 
             BEGIN_TIMER("GetProbs.LogSoftMax");
